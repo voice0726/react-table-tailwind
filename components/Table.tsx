@@ -36,7 +36,9 @@ const Table: FC<Props> = ({ tableInstance }) => {
                     {headerGroup.headers.map((column) => (
                       <th
                         {...column.getHeaderProps(column.getSortByToggleProps())}
-                        className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase"
+                        className={`px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase ${
+                          column.tailwindClass || ''
+                        }`}
                       >
                         {column.render('Header')}
                         <span>

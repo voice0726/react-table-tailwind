@@ -1144,6 +1144,7 @@ const TablePage: NextPage = () => {
         accessor: 'id',
         width: 100,
         filter: multiSelectFilter,
+        tailwindClass: 'w-1/8',
       },
       {
         Header: 'First Name',
