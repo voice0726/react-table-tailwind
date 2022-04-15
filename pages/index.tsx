@@ -1,15 +1,7 @@
 import { NextPage } from 'next';
 import Table from 'components/Table';
 import { useMemo } from 'react';
-import {
-  Column,
-  FilterType,
-  FilterTypes,
-  useFilters,
-  usePagination,
-  useSortBy,
-  useTable,
-} from 'react-table';
+import { Column, FilterType, FilterTypes, useFilters, usePagination, useSortBy, useTable } from 'react-table';
 import Layout from 'components/Layout';
 import Filter from 'components/Filter';
 
@@ -576,8 +568,7 @@ const TablePage: NextPage = () => {
         city: 'Serpukhov',
         country: 'Russia',
         creditCard: '3570119061757185',
-        university:
-          'Siberian State University of Telecommunications and Informatics',
+        university: 'Siberian State University of Telecommunications and Informatics',
       },
       {
         id: 51,
@@ -1130,28 +1121,20 @@ const TablePage: NextPage = () => {
         university: 'Gotland University College',
       },
     ],
-    [],
+    []
   );
 
-  const multiSelectFilter: FilterType<Data> = (
-    rows,
-    columnIds,
-    filterValue: string,
-  ) => {
+  const multiSelectFilter: FilterType<Data> = (rows, columnIds, filterValue: string) => {
     const columnId = columnIds[0] as keyof Data;
 
-    return filterValue.length === 0
-      ? rows
-      : rows.filter((row) =>
-          filterValue.includes(String(row.original[columnId])),
-        );
+    return filterValue.length === 0 ? rows : rows.filter((row) => filterValue.includes(String(row.original[columnId])));
   };
 
   const filterTypes = useMemo<FilterTypes<Data>>(
     () => ({
       multiSelectFilter,
     }),
-    [],
+    []
   );
 
   const columns: Column<Data>[] = useMemo(
@@ -1200,14 +1183,14 @@ const TablePage: NextPage = () => {
         width: 100,
       },
     ],
-    [],
+    []
   );
 
   const tableInstance = useTable(
     { columns, data, initialState: { pageSize: 10 }, filterTypes },
     useFilters,
     useSortBy,
-    usePagination,
+    usePagination
   );
 
   return (

@@ -55,17 +55,12 @@ const Pagination: FC<Props> = ({
         <div>
           <p className="text-sm text-gray-700">
             Showing <span className="font-medium">{showingFrom}</span> to{' '}
-            <span className="font-medium">
-              {showingTo > length ? length : showingTo}
-            </span>{' '}
-            of <span className="font-medium">{length}</span> results
+            <span className="font-medium">{showingTo > length ? length : showingTo}</span> of{' '}
+            <span className="font-medium">{length}</span> results
           </p>
         </div>
         <div>
-          <nav
-            className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-            aria-label="Pagination"
-          >
+          <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
             <button
               type="button"
               className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
@@ -83,12 +78,7 @@ const Pagination: FC<Props> = ({
                   : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium';
 
               return page !== -1 ? (
-                <button
-                  type="button"
-                  onClick={() => gotoPage(page - 1)}
-                  aria-current="page"
-                  className={className}
-                >
+                <button type="button" onClick={() => gotoPage(page - 1)} aria-current="page" className={className}>
                   {page}
                 </button>
               ) : (
@@ -113,4 +103,3 @@ const Pagination: FC<Props> = ({
   );
 };
 export default Pagination;
-
