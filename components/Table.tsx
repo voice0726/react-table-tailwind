@@ -1,15 +1,28 @@
 import { FC } from 'react';
-import { Column, useSortBy, useTable } from 'react-table';
-import { Data } from 'pages/table';
+import { TableInstance } from 'react-table';
+
+import Pagination from 'components/Pagination';
+import { Data } from 'pages';
 
 type Props = {
-  columns: Column<Data>[];
-  data: Data[];
+  tableInstance: TableInstance<Data>;
 };
 
-const Table: FC<Props> = ({ columns, data }) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data, hiddenColumns: ['orderId'] }, useSortBy);
+const Table: FC<Props> = ({ tableInstance }) => {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    page,
+    prepareRow,
+    canNextPage,
+    canPreviousPage,
+    nextPage,
+    previousPage,
+    gotoPage,
+    state: { pageIndex, pageSize },
+  } = tableInstance;
 
   return (
     <div className="flex flex-col">
@@ -18,7 +31,7 @@ const Table: FC<Props> = ({ columns, data }) => {
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
             <table
               {...getTableProps()}
-              className="min-w-full divide-y divide-gray-200"
+              className="min-w-full divide-y divide-gray-200 "
             >
               <thead className="bg-gray-50">
                 {headerGroups.map((headerGroup) => (
@@ -28,11 +41,11 @@ const Table: FC<Props> = ({ columns, data }) => {
                         {...column.getHeaderProps(
                           column.getSortByToggleProps(),
                         )}
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase"
                       >
                         {column.render('Header')}
                         <span>
+                          {/* eslint-disable-next-line no-nested-ternary */}
                           {column.isSorted
                             ? column.isSortedDesc
                               ? ' 🔽'
@@ -45,7 +58,7 @@ const Table: FC<Props> = ({ columns, data }) => {
                 ))}
               </thead>
               <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
+                {page.map((row, i) => {
                   prepareRow(row);
 
                   return (
@@ -56,7 +69,9 @@ const Table: FC<Props> = ({ columns, data }) => {
                       {row.cells.map((cell) => (
                         <td
                           {...cell.getCellProps()}
-                          className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                          className={`${
+                            cell.column.width || ''
+                          } px-2 py-2 text-sm font-xs text-gray-900`}
                         >
                           {cell.render('Cell')}
                         </td>
@@ -66,6 +81,16 @@ const Table: FC<Props> = ({ columns, data }) => {
                 })}
               </tbody>
             </table>
+            <Pagination
+              canNextPage={canNextPage}
+              canPreviousPage={canPreviousPage}
+              previousPage={previousPage}
+              nextPage={nextPage}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              length={rows.length}
+              gotoPage={gotoPage}
+            />
           </div>
         </div>
       </div>
