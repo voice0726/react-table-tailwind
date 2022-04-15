@@ -28,7 +28,7 @@ function classNames(...classes: string[]) {
 const Layout: FC = ({ children }) => (
   <div className="min-h-screen bg-white">
     <Disclosure as="nav" className="bg-white border-b border-gray-200">
-      {({ open }) => (
+      {({ open: isDisclosureOpen }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
@@ -64,14 +64,17 @@ const Layout: FC = ({ children }) => (
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button
+                  type="button"
+                  className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
-                  {({ open }) => (
+                  {({ open: isMenuOpen }) => (
                     <>
                       <div>
                         <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -80,7 +83,7 @@ const Layout: FC = ({ children }) => (
                         </Menu.Button>
                       </div>
                       <Transition
-                        show={open}
+                        show={isMenuOpen}
                         as={Fragment}
                         enter="transition ease-out duration-200"
                         enterFrom="transform opacity-0 scale-95"
@@ -118,7 +121,7 @@ const Layout: FC = ({ children }) => (
                 {/* Mobile menu button */}
                 <Disclosure.Button className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   <span className="sr-only">Open main menu</span>
-                  {open ? (
+                  {isDisclosureOpen ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
                     <MenuIcon className="block h-6 w-6" aria-hidden="true" />
@@ -155,7 +158,10 @@ const Layout: FC = ({ children }) => (
                   <div className="text-base font-medium text-gray-800">{user.name}</div>
                   <div className="text-sm font-medium text-gray-500">{user.email}</div>
                 </div>
-                <button className="ml-auto bg-white flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button
+                  type="button"
+                  className="ml-auto bg-white flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
